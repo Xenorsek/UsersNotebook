@@ -1,0 +1,40 @@
+﻿@using UserNotebook.Core.Models;
+@model IEnumerable<UserDto>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Data Urodzenia</th>
+            <th>Płeć</th>
+            <th>Dodatkowe Parametry</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Imie</td>
+                <td>@user.Nazwisko</td>
+                <td>@user.DataUrodzenia.ToString("dd-MM-yyyy")</td>
+                <td>@user.Plec</td>
+                <td>
+                    @if (user.DodatkoweParametry != null && user.DodatkoweParametry.Any())
+                    {
+                        <ul>
+                            @foreach (var elem in user.DodatkoweParametry)
+                            {
+                                <li>@elem.Key: @elem.Value</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <text>Brak</text>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

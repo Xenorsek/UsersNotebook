@@ -1,0 +1,6 @@
+﻿@using UserNotebook.Core.Models;
+@model IEnumerable<UserDto>
+@{
+	ViewData["Title"] = "Notatnik użytkowników";
+}
+@await Html.PartialAsync("UsersTable", Model)
