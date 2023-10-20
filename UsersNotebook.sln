@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersNotebook", "UsersNotebook\UsersNotebook.csproj", "{C70F143C-26AA-4192-A34C-847948D44C07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserNotebook.Core", "UserNotebook.Core\UserNotebook.Core.csproj", "{B448C71E-F6F8-43A3-A250-CB9469C6F63A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE49F114-FBA1-4782-A141-E7C512CCC8B7} = {AE49F114-FBA1-4782-A141-E7C512CCC8B7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersNotebook.Data", "Data\UsersNotebook.Data.csproj", "{AE49F114-FBA1-4782-A141-E7C512CCC8B7}"
 EndProject

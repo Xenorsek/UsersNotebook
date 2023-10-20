@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using UsersNotebook.Data.Context;
+using UsersNotebook.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-// Add services to the container.
+
+//services
+builder.Services.AddDependencyInjection();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
