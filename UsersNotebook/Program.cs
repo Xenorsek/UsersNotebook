@@ -1,7 +1,19 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using UsersNotebook.Data.Context;
 
+var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+        settings =>
+        {
+            settings.CommandTimeout(10);
+        });
+});
 
 var app = builder.Build();
 
