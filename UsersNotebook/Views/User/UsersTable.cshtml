@@ -1,6 +1,8 @@
 ﻿@using UserNotebook.Core.Models;
-@model IEnumerable<UserDto>
-
+@model List<UserDto>
+@{
+    Model.AddRange(Model);
+}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -87,9 +89,6 @@
             success: function(){
                 $('#removeUserModal').modal('hide');
                 location.reload();
-            },
-            error: function (xhr, status, error) {
-                alert('Wystąpił błąd: ' + error);
             }
         });
     });
