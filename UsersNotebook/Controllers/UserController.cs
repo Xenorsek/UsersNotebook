@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using UserNotebook.Core.Services;
+using UsersNotebook.Core.Models;
+using UsersNotebook.Models;
 
 namespace UsersNotebook.Controllers
 {
@@ -24,6 +26,21 @@ namespace UsersNotebook.Controllers
             await _userService.DeleteUser(id);
             return Ok();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser([FromForm] CreateUserRequest user)
+        {
+            if (ModelState.IsValid)
+            {
+                await _userService.CreateUser(user);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         public IActionResult UsersTable()
         {
             return PartialView();

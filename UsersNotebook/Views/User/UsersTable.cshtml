@@ -1,6 +1,9 @@
 ﻿@using UserNotebook.Core.Models;
 @model IEnumerable<UserDto>
 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+    Dodaj
+</button>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -69,6 +72,50 @@
     </div>
 </div>
 
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Dodaj użytkownika</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addUserForm" action="/User/AddUser" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="firstName">Imię</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" maxLength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Nazwisko</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" maxLength="150" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">Data urodzenia</label>
+                        <input type="text" class="form-control datepicker" id="birthDate" name="birthDate" required endDate="@DateTime.Today.ToString("yyyy-MM-dd")">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Płeć</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="">Wybierz płeć</option>
+                            <option value="male">Mężczyzna</option>
+                            <option value="female">Kobieta</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary mb-3" onclick="AddParameter()">Możesz dodać coś od siebie!</button>
+                    
+                    <div class="container" id="additionalParametersForm"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-success" id="confirmDeleteButton">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     $('#removeUserModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -86,6 +133,77 @@
             type: 'POST',
             success: function(){
                 $('#removeUserModal').modal('hide');
+                location.reload();
+            }
+        });
+    });
+
+    let parameterCounter = 0;
+    function AddParameter() {
+        parameterCounter++;
+
+        // Stworzenie nowego wiersza z polami i przyciskiem
+        const newRow = document.createElement('div');
+        newRow.className = 'row mb-3';
+        newRow.id = 'parameterRow' + parameterCounter;
+
+        // Pole dla klucza
+        const keyCol = document.createElement('div');
+        keyCol.className = 'col-md-4';
+        const keyInput = document.createElement('input');
+        keyInput.type = 'text';
+        keyInput.className = 'form-control';
+        keyInput.name = 'parameters[' + parameterCounter + '].key';
+        keyInput.placeholder = 'Klucz';
+        keyCol.appendChild(keyInput);
+
+        // Pole dla wartości
+        const valueCol = document.createElement('div');
+        valueCol.className = 'col-md-6';
+        const valueInput = document.createElement('input');
+        valueInput.type = 'text';
+        valueInput.className = 'form-control';
+        valueInput.name = 'parameters[' + parameterCounter + '].value';
+        valueInput.placeholder = 'Wartość';
+        valueCol.appendChild(valueInput);
+
+        // Przycisk do usunięcia wiersza
+        const buttonCol = document.createElement('div');
+        buttonCol.className = 'col-md-1';
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger';
+        deleteButton.innerText = 'Usuń';
+        deleteButton.onclick = function () {
+            document.getElementById('additionalParametersForm').removeChild(newRow);
+        };
+        buttonCol.appendChild(deleteButton);
+
+        // Dodanie kolumn do nowego wiersza
+        newRow.appendChild(keyCol);
+        newRow.appendChild(valueCol);
+        newRow.appendChild(buttonCol);
+
+        // Dodanie nowego wiersza do elementu formularza
+        document.getElementById('additionalParametersForm').appendChild(newRow);
+    }
+
+    $('#addUserForm').submit(function (event) {
+        event.preventDefault();
+
+        const parameterRows = document.querySelectorAll('#additionalParametersForm .row');
+        parameterRows.forEach((row, index) => {
+            const keyInput = row.querySelector('input[name*=".key"]');
+            const valueInput = row.querySelector('input[name*=".value"]');
+            keyInput.name = 'parameters[' + index + '].key';
+            valueInput.name = 'parameters[' + index + '].value';
+        });
+
+        var formData = $(this).serialize();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
                 location.reload();
             }
         });

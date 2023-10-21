@@ -24,7 +24,7 @@ namespace UserNotebook.Core.Repositories
 
         public async Task CreateUser(User user)
         {
-            if (ValidateModel(user))
+            if (!ValidateModel(user))
             {
                 throw new ValidationException("Validation error");
             }
@@ -39,7 +39,7 @@ namespace UserNotebook.Core.Repositories
             {
                 throw new ArgumentNullException(nameof(updatedUser));
             }
-            if (ValidateModel(updatedUser))
+            if (!ValidateModel(updatedUser))
             {
                 throw new ValidationException("Validation error");
             }

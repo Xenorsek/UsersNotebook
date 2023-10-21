@@ -15,8 +15,8 @@
 }
 
 $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
-    if (jqxhr.responseJSON && jqxhr.responseJSON.message) {
-        showToast(jqxhr.responseJSON.message);
+    if (jqxhr.responseText) {
+        showToast(jqxhr.responseText);
     } else {
         showToast('Wystąpił nieznany błąd');
     }
