@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using UserNotebook.Core.Services;
 
 namespace UsersNotebook.Controllers
@@ -18,6 +19,11 @@ namespace UsersNotebook.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            await _userService.DeleteUser(id);
+            return Ok();
+        }
         public IActionResult UsersTable()
         {
             return PartialView();

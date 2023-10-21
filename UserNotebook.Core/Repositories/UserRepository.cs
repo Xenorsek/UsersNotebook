@@ -62,6 +62,11 @@ namespace UserNotebook.Core.Repositories
 
         public async Task RemoveUserById(int id)
         {
+            if (id <= 0)
+            {
+                throw new NotFoundException(nameof(User), id);
+            }
+
             var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user is null)

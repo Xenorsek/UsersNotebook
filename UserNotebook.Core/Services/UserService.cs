@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UserNotebook.Core.Models;
+﻿using UserNotebook.Core.Models;
 using UserNotebook.Core.Repositories;
 
 namespace UserNotebook.Core.Services
@@ -32,6 +27,11 @@ namespace UserNotebook.Core.Services
             }).ToList();
 
             return result;
+        }
+
+        public async Task DeleteUser(int id)
+        {           
+            await _userRepository.RemoveUserById(id);
         }
     }
 }
