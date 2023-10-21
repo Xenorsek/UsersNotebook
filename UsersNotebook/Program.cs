@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UsersNotebook.Data.Context;
 using UsersNotebook.Helpers;
+using UsersNotebook.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -28,6 +29,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

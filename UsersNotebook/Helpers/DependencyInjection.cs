@@ -1,5 +1,6 @@
 ﻿using UserNotebook.Core.Repositories;
 using UserNotebook.Core.Services;
+using UsersNotebook.Middlewares;
 
 namespace UsersNotebook.Helpers
 {
@@ -7,6 +8,7 @@ namespace UsersNotebook.Helpers
     {
         public static void AddDependencyInjection(this IServiceCollection services)
         {
+            services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();    
         }
