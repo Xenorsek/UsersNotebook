@@ -8,5 +8,6 @@ namespace UserNotebook.Core.Services
         Task CreateUser(CreateUserRequest newUser);
         Task DeleteUser(int id);
         Task<List<UserDto>> GetUsers();
+        Task UpdateUser(UpdateUserRequest updateUser);
     }
 }

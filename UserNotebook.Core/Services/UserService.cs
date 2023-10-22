@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UserNotebook.Core.Exceptions;
 using UserNotebook.Core.Models;
 using UserNotebook.Core.Repositories;
 using UsersNotebook.Core.Models;
@@ -19,6 +20,11 @@ namespace UserNotebook.Core.Services
         {
             var result = new List<UserDto>();
             var users = await _userRepository.GetUsers();
+            if (users == null || !users.Any())
+            {
+                return result;
+            }
+
             result = users.Select(u => new UserDto
             {
                 Id = u.Id,
@@ -37,7 +43,7 @@ namespace UserNotebook.Core.Services
             var isValid = ValidateParameters(newUser);
             if (!isValid)
             {
-                throw new ValidationException("Nowy użytkownik nie przeszedł walidacji");
+                throw new ValidationException("Nowy użytkownik nie przeszedł poprawnie walidacji");
             }
 
             User user = new User
@@ -51,6 +57,30 @@ namespace UserNotebook.Core.Services
 
             await _userRepository.CreateUser(user);
         }
+
+        public async Task UpdateUser(UpdateUserRequest updateUser)
+        {
+            var isValid = ValidateParameters(updateUser);
+            if (!isValid)
+            {
+                throw new ValidationException("Użytkownik nie przeszedł poprawnie walidacji");
+            }
+
+            var user = await _userRepository.GetUserById(updateUser.Id);
+            if (user == null)
+            {
+                throw new NotFoundException(nameof(User), updateUser.Id);
+            }
+
+            user.Imie = updateUser.FirstName;
+            user.Nazwisko = updateUser.LastName;
+            user.DataUrodzenia = updateUser.BirthDate;
+            user.Płeć = updateUser.Gender;
+            user.DodatkoweParametryList = updateUser.Parameters.Select(x => new AdditionalParameters { Key = x.Key, Value = x.Value }).ToList();
+
+            await _userRepository.UpdateUser(user);
+        }
+
 
         public async Task DeleteUser(int id)
         {

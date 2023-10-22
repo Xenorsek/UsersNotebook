@@ -17,6 +17,7 @@
     <tbody>
         @foreach (var user in Model)
         {
+            var userJson = System.Text.Json.JsonSerializer.Serialize(user);
             <tr>
                 <td>@user.Imie</td>
                 <td>@user.Nazwisko</td>
@@ -38,9 +39,9 @@
                     }
                 </td>
                 <td>
-                    <a href="@Url.Action("Edit", "User", new { id = user.Id })" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUserModal" data-user="@userJson">
                         Edytuj
-                    </a>
+                    </button>
                     <button type="button" class="btn btn-danger delete-button" data-toggle="modal" data-target="#removeUserModal" data-user-id="@user.Id">
                         Usuń
                     </button>
@@ -93,14 +94,14 @@
                     </div>
                     <div class="form-group">
                         <label for="birthDate">Data urodzenia</label>
-                        <input type="text" class="form-control datepicker" id="birthDate" name="birthDate" required endDate="@DateTime.Today.ToString("yyyy-MM-dd")">
+                        <input type="text" class="form-control datepicker" id="birthDate" name="birthDate" required>
                     </div>
                     <div class="form-group">
                         <label for="gender">Płeć</label>
                         <select class="form-control" id="gender" name="gender" required>
                             <option value="">Wybierz płeć</option>
-                            <option value="male">Mężczyzna</option>
-                            <option value="female">Kobieta</option>
+                            <option value="Mężczyzna">Mężczyzna</option>
+                            <option value="Kobieta">Kobieta</option>
                         </select>
                     </div>
                     <button type="button" class="btn btn-secondary mb-3" onclick="AddParameter()">Możesz dodać coś od siebie!</button>
@@ -110,6 +111,51 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
                     <button type="submit" class="btn btn-success" id="confirmDeleteButton">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateUserModalLabel">Dodaj użytkownika</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="updateUserForm" action="/User/UpdateUser" method="post">
+                <input type="hidden" id="userId" name="id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="firstName">Imię</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" maxLength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Nazwisko</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" maxLength="150" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">Data urodzenia</label>
+                        <input type="text" class="form-control datepicker" id="birthDate" name="birthDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Płeć</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="">Wybierz płeć</option>
+                            <option value="Mężczyzna">Mężczyzna</option>
+                            <option value="Kobieta">Kobieta</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary mb-3" onclick="updateAddParameter()">Możesz dodać coś od siebie!</button>
+                    
+                    <div class="container" id="additionalParametersUpdateForm"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-success" id="confirmEditButton">Edytuj</button>
                 </div>
             </form>
         </div>
@@ -138,14 +184,23 @@
         });
     });
 
-    let parameterCounter = 0;
-    function AddParameter() {
-        parameterCounter++;
+    let addParameterCounter = 0;
+    function AddParameter(){
+        addParameterCounter++;
+        GenerateParameter(addParameterCounter, "additionalParametersForm");
+    }
 
+    let updateParameterCounter = 0;
+    function updateAddParameter(){
+        GenerateParameter(updateParameterCounter, "additionalParametersUpdateForm");
+    }
+
+    function GenerateParameter(index, container, key, value) {
+        var containerId = container;
         // Stworzenie nowego wiersza z polami i przyciskiem
         const newRow = document.createElement('div');
         newRow.className = 'row mb-3';
-        newRow.id = 'parameterRow' + parameterCounter;
+        newRow.id = 'parameterRow' + index;
 
         // Pole dla klucza
         const keyCol = document.createElement('div');
@@ -153,8 +208,12 @@
         const keyInput = document.createElement('input');
         keyInput.type = 'text';
         keyInput.className = 'form-control';
-        keyInput.name = 'parameters[' + parameterCounter + '].key';
+        keyInput.name = 'parameters[' + index + '].key';
         keyInput.placeholder = 'Klucz';
+        if (typeof key === "string" && key.length > 0){
+            keyInput.value = key;
+        }
+
         keyCol.appendChild(keyInput);
 
         // Pole dla wartości
@@ -163,8 +222,11 @@
         const valueInput = document.createElement('input');
         valueInput.type = 'text';
         valueInput.className = 'form-control';
-        valueInput.name = 'parameters[' + parameterCounter + '].value';
+        valueInput.name = 'parameters[' + index + '].value';
         valueInput.placeholder = 'Wartość';
+        if (typeof value == "string" && value.length > 0) {
+            valueInput.value = value;
+        }
         valueCol.appendChild(valueInput);
 
         // Przycisk do usunięcia wiersza
@@ -174,7 +236,7 @@
         deleteButton.className = 'btn btn-danger';
         deleteButton.innerText = 'Usuń';
         deleteButton.onclick = function () {
-            document.getElementById('additionalParametersForm').removeChild(newRow);
+            document.getElementById(containerId).removeChild(newRow);
         };
         buttonCol.appendChild(deleteButton);
 
@@ -184,7 +246,7 @@
         newRow.appendChild(buttonCol);
 
         // Dodanie nowego wiersza do elementu formularza
-        document.getElementById('additionalParametersForm').appendChild(newRow);
+        document.getElementById(containerId).appendChild(newRow);
     }
 
     $('#addUserForm').submit(function (event) {
@@ -207,5 +269,49 @@
                 location.reload();
             }
         });
+    });
+
+    $('#updateUserForm').submit(function (event) {
+        event.preventDefault();
+        const parameterRows = document.querySelectorAll('#additionalParametersForm .row');
+        parameterRows.forEach((row, index) => {
+            const keyInput = row.querySelector('input[name*=".key"]');
+            const valueInput = row.querySelector('input[name*=".value"]');
+            keyInput.name = 'parameters[' + index + '].key';
+            valueInput.name = 'parameters[' + index + '].value';
+        });
+        
+        var formData = $(this).serialize();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                location.reload();
+            }
+        });
+    });
+
+    $('#updateUserModal').on('show.bs.modal', function (event) {
+        $("#additionalParametersUpdateForm").empty();
+
+        var button = $(event.relatedTarget)
+        var user = button.data('user')
+        console.log(user)
+        var modal = $(this)
+        modal.find('#userId').val(user.Id);
+        modal.find('#firstName').val(user.Imie);
+        modal.find('#lastName').val(user.Nazwisko);
+        modal.find('#birthDate').val(user.DataUrodzenia.split('T')[0]);
+        modal.find('#gender').val(user.Plec);   
+        user.DodatkoweParametry.forEach((parameter, index) => {      
+            GenerateParameter(index, "additionalParametersUpdateForm", parameter.Key, parameter.Value);
+        })
+        if(user.DodatkoweParametry){
+            updateParameterCounter = user.DodatkoweParametry.length;
+        }
+        else{
+            updateParameterCounter = 0;
+        }
     });
 </script>

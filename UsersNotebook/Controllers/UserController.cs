@@ -41,6 +41,20 @@ namespace UsersNotebook.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser([FromForm] UpdateUserRequest user)
+        {
+            if(ModelState.IsValid)
+            {
+                await _userService.UpdateUser(user);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         public IActionResult UsersTable()
         {
             return PartialView();
