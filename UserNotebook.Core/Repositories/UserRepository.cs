@@ -22,6 +22,12 @@ namespace UserNotebook.Core.Repositories
             return users;
         }
 
+        public async Task<User> GetUserById(int id)
+        {
+            var user = await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return user;
+        }
+
         public async Task CreateUser(User user)
         {
             if (!ValidateModel(user))

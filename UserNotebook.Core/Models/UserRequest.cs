@@ -20,6 +20,6 @@ namespace UsersNotebook.Core.Models
     }
     public class UpdateUserRequest : UserRequest
     {
-        
+        public int Id { get; set; }
     }
 }
