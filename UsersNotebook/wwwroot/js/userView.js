@@ -6,13 +6,13 @@ $('#removeUserModal').on('show.bs.modal', function (event) {
     modal.find('#confirmDeleteButton').data('user-id', userId);
 });
 
-$('#confirmDeleteButton').on('click', function () {
+$(document).on('click', '#confirmDeleteButton', function () {
     var userId = $(this).data('user-id');
-    var deleteUrl = '@Url.Action("DeleteUser", "User")' + '/' + userId;
+    var deleteUrl = $(this).data('delete-url') + '/' + userId;
 
     $.ajax({
         url: deleteUrl,
-        type: 'POST',
+        type: 'DELETE',
         success: function () {
             $('#removeUserModal').modal('hide');
             location.reload();
