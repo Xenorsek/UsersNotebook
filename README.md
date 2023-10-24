@@ -30,7 +30,7 @@ Otwórz plik appsettings.json w głównym katalogu projektu. Znajdź sekcję Con
 }
 ```
 3. **Migracje Bazy Danych**
-   ```bash
+  ```bash
    cd appName.Data
    dotnet ef database update
    ```
@@ -44,9 +44,8 @@ Po uruchomieniu, otwórz przeglądarkę internetową i przejdź do https://local
 Możesz również uruchomić aplikację w IIS Express co powinno uruchomić od razu aplikację.
 
 Aplikacja pozwala na:
-
-Dodawanie nowych użytkowników
-Usuwanie istniejących użytkowników
-Modyfikowanie danych użytkowników
-Generowanie raportu użytkowników
+- Dodawanie nowych użytkowników
+- Usuwanie istniejących użytkowników
+- Modyfikowanie danych użytkowników
+- Generowanie raportu użytkowników
       
