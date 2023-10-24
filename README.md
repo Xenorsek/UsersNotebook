@@ -1,4 +1,4 @@
-# appName
+# UsersNotebook
 
 Aplikacja zbudowana w technologii ASP.NET Core 7.0 MVC, która pozwala na dodawanie, usuwanie, modyfikowanie oraz generowanie raportu użytkowników.
 
@@ -13,13 +13,13 @@ Aplikacja zbudowana w technologii ASP.NET Core 7.0 MVC, która pozwala na dodawa
 1. **Pobieranie Repozytorium**
    
    ```bash
-   git clone https://github.com/your-username/appName.git
+   git clone https://github.com/Xenorsek/UsersNotebook.git
    cd appName
    ```
 2. **Konfiguracja Bazy Danych**
 
 Upewnij się, że masz działający serwer SQL Server.
-Stwórz bazę danych o nazwie, której chcesz użyć dla aplikacji.
+Stwórz bazę danych o nazwie, której chcesz użyć dla aplikacji. ( Polecana UsersNotebook )
 Aktualizacja Connection String
 
 Otwórz plik appsettings.json w głównym katalogu projektu. Znajdź sekcję ConnectionStrings i zaktualizuj wartość DefaultConnection zgodnie z konfiguracją Twojego serwera SQL i nazwą bazy danych.
@@ -31,7 +31,7 @@ Otwórz plik appsettings.json w głównym katalogu projektu. Znajdź sekcję Con
 ```
 3. **Migracje Bazy Danych**
   ```bash
-   cd appName.Data
+   cd UsersNotebook.Data
    dotnet ef database update
    ```
 4. **Uruchomienie Aplikacji**
