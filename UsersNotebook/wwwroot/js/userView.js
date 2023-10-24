@@ -13,6 +13,10 @@ $(document).on('click', '#confirmDeleteButton', function () {
     $.ajax({
         url: deleteUrl,
         type: 'DELETE',
+        headers: {
+            RequestVerificationToken:
+                document.getElementById("RequestVerificationDeleteUserToken").value
+        },
         success: function () {
             $('#removeUserModal').modal('hide');
             location.reload();

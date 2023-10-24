@@ -9,6 +9,7 @@
             </div>
             <form id="updateUserForm" action="/User/UpdateUser" method="post">
                 <input type="hidden" id="userId" name="id">
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="firstName">Imię</label>

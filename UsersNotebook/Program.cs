@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UsersNotebook.Data.Context;
 using UsersNotebook.Helpers;
@@ -8,7 +9,11 @@ var configuration = builder.Configuration;
 
 //services
 builder.Services.AddDependencyInjection();
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
