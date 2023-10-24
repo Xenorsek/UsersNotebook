@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Antiforgery;
+using System.ComponentModel.DataAnnotations;
 using UserNotebook.Core.Exceptions;
 
 namespace UsersNotebook.Middlewares
@@ -33,6 +34,13 @@ namespace UsersNotebook.Middlewares
             {
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(argumentNullException.Message);
+            }
+            catch (AggregateException aggregateException)
+            {
+                context.Response.StatusCode = 500;
+                var errorMessage = "The required 'libwkhtmltox' DLL file is missing. Please ensure the file is placed at the same level as 'appsettings.json', and update the 'LibwkhtmltoxPath' value in 'appsettings.json' with the full path to the 'libwkhtmltox' DLL file.";
+                await context.Response.WriteAsync(errorMessage);
+
             }
             catch (Exception ex)
             {
