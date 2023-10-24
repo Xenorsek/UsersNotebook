@@ -11,6 +11,8 @@ namespace UsersNotebook.Helpers
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();    
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            services.AddScoped<IReportService, ReportService>();
         }
     }
 }

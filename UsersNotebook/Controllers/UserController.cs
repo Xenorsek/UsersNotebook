@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
 using UserNotebook.Core.Services;
 using UsersNotebook.Core.Models;
-using UsersNotebook.Models;
 
 namespace UsersNotebook.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IReportService _reportService;
 
-		public UserController(IUserService userService)
+        public UserController(IUserService userService, IReportService reportService)
 		{
 			_userService = userService;
+            _reportService = reportService;
 		}
 
 		public async Task<IActionResult> Index()
@@ -44,6 +44,7 @@ namespace UsersNotebook.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateUser([FromForm] UpdateUserRequest user)
         {
+            var something = HttpContext.Request.Headers;
             if(ModelState.IsValid)
             {
                 await _userService.UpdateUser(user);
@@ -55,14 +56,13 @@ namespace UsersNotebook.Controllers
             }
         }
 
-        public IActionResult UsersTable()
+        [HttpGet]
+        public async Task<IActionResult> GenerateUserReport()
         {
-            return PartialView();
-        }
-
-        public IActionResult AddUserForm()
-        {
-            return View();
+            var users = await _userService.GetUsers();
+            var pdfReport = _reportService.GenerateUserReport(users);
+            var formattedDateTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            return File(pdfReport, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{formattedDateTime}.pdf");
         }
     }
 }

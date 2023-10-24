@@ -155,3 +155,8 @@ $('#addUserForm').submit(function (event) {
         }
     });
 });   
+
+$('#generateReportButton').click(function () {
+    var generateRaportUrl = $(this).data('generatereport-url')
+    location.href = generateRaportUrl;
+});
