@@ -111,6 +111,9 @@ $('#updateUserForm').submit(function (event) {
 });
 
 $('#updateUserModal').on('show.bs.modal', function (event) {
+    if (!$(event.relatedTarget).hasClass('btn-primary')) {
+        return;
+    }
     $("#additionalParametersUpdateForm").empty();
 
     var button = $(event.relatedTarget)
