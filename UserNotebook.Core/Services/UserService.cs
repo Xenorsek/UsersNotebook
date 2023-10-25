@@ -91,19 +91,19 @@ namespace UserNotebook.Core.Services
         {
             if (userRequest == null)
             {
-                return false;
+                throw new ValidationException("Użytkownik nie może być pusty");
             }
             if (string.IsNullOrEmpty(userRequest.FirstName) || userRequest.FirstName.Length > 50)
             {
-                return false;
+                throw new ValidationException("Imię użytkownika nie może być puste lub dłuższe niż 50 znaków");
             }
             if(string.IsNullOrEmpty(userRequest.LastName) || userRequest.LastName.Length > 150)
             {
-                return false;
+                throw new ValidationException("Nazwisko użytkownika nie może być puste lub dłuższe niż 150 znaków");
             }
             if(userRequest.BirthDate > DateTime.Now)
             {
-                return false;
+                throw new ValidationException("Data urodzenia użytkownika musi być mniejsza od dzisiejszej daty");
             }
             return true;
         }
