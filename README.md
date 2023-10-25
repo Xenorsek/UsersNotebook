@@ -1,5 +1,5 @@
 # UsersNotebook
-
+( na samym dole znajduje się instrukcja jak zainstalować aplikację jako kontener w docker )
 Aplikacja zbudowana w technologii ASP.NET Core 7.0 MVC, która pozwala na dodawanie, usuwanie, modyfikowanie oraz generowanie raportu użytkowników.
 
 ## Wymagania
