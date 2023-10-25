@@ -30,6 +30,8 @@ Otwórz plik appsettings.json w głównym katalogu projektu. Znajdź sekcję Con
 }
 ```
 3. **Migracje Bazy Danych**
+   
+Aplikacja przy pierwszym uruchomieniu powinna utworzyć migrację. Jednak jeżeli będzie taka konieczność należy przeprowadzić ją ręcznie.
   ```bash
    cd UsersNotebook.Data
    dotnet ef database update
@@ -48,4 +50,35 @@ Aplikacja pozwala na:
 - Usuwanie istniejących użytkowników
 - Modyfikowanie danych użytkowników
 - Generowanie raportu użytkowników
-      
+## Instalacja przez Docker
+### Wymagania
+
+- Docker
+- Docker Compose
+
+### Instalacja
+
+1. **Pobieranie Docker i Docker Compose**:
+   - Docker: Przejdź na stronę [Docker](https://docs.docker.com/get-docker/) i pobierz oraz zainstaluj Docker dla swojego systemu operacyjnego.
+   - Docker Compose: Jeśli korzystasz z systemu inny niż Windows lub Mac, możesz potrzebować zainstalować Docker Compose oddzielnie. Przejdź na stronę [Docker Compose](https://docs.docker.com/compose/install/) i postępuj zgodnie z instrukcjami.
+
+2. **Pobranie projektu**:
+   - Sklonuj to repozytorium lub pobierz je jako archiwum ZIP i rozpakuj w wybranym przez siebie miejscu.
+
+3. **Uruchomienie aplikacji**:
+   - Przejdź do katalogu z plikiem `docker-compose.yml` w terminalu ( plik znajduje się na poziomie pliku .sln ):
+     ```bash
+     cd UsersNotebook
+     ```
+   - Uruchom aplikację za pomocą Docker Compose:
+     ```bash
+     docker-compose up -d
+     ```
+
+## Użycie
+
+Po uruchomieniu aplikacji, otwórz przeglądarkę internetową i wprowadź adres URL hosta Docker (np. `http://localhost:8080`), aby uzyskać dostęp do aplikacji UsersNotebook. Możesz teraz dodawać, edytować, usuwać użytkowników oraz generować raporty.
+
+## Rozwiązywanie problemów
+
+W przypadku problemów z uruchomieniem aplikacji lub błędów podczas jej działania, upewnij się, że wszystkie zależności są poprawnie zainstalowane i skonfigurowane.
