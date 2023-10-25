@@ -9,10 +9,4 @@
         public string Plec { get; set; }
         public List<AdditionalParametersDto> DodatkoweParametry { get; set; } = new List<AdditionalParametersDto>();
     }
-
-    public class AdditionalParametersDto
-    {
-        public required string Key { get; set; }
-        public required string Value { get; set; }
-    }
 }
