@@ -44,7 +44,6 @@ namespace UsersNotebook.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateUser([FromForm] UpdateUserRequest user)
         {
-            var something = HttpContext.Request.Headers;
             if(ModelState.IsValid)
             {
                 await _userService.UpdateUser(user);
