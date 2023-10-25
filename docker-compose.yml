@@ -6,6 +6,8 @@ services:
     build: .
     ports:
       - "8080:80"
+    environment:
+        ConnectionStrings__DefaultConnection: "Server=db;Database=master;User=sa;Password=Your_password123!;Encrypt=false;"
   db:
     image: "mcr.microsoft.com/mssql/server"
     environment:
