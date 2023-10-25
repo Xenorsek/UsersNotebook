@@ -77,7 +77,7 @@ namespace UserNotebook.Core.Services
                     <td>{0}</td>
                     <td>{1}</td>
                     <td>{2}</td>
-                    <td>{3:yyyy-MM-dd}</td>
+                    <td>{3:dd-MM-yyyy}</td>
                     <td>{4}</td>
                     <td>{5}</td>
                     <td>{6}</td>

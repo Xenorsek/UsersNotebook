@@ -120,12 +120,14 @@ $('#updateUserModal').on('show.bs.modal', function (event) {
 
     var button = $(event.relatedTarget)
     var user = button.data('user')
-
+    let dateParts = user.DataUrodzenia.split('T')[0].split('-');
+    let formattedDate = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+    
     var modal = $(this)
     modal.find('#userId').val(user.Id);
     modal.find('#firstName').val(user.Imie);
     modal.find('#lastName').val(user.Nazwisko);
-    modal.find('#birthDate').val(user.DataUrodzenia.split('T')[0]);
+    modal.find('#birthDate').val(formattedDate);
     modal.find('#gender').val(user.Plec);
     user.DodatkoweParametry.forEach((parameter, index) => {
         GenerateParameter(index, "additionalParametersUpdateForm", parameter.Key, parameter.Value);

@@ -103,7 +103,7 @@ namespace UserNotebook.Core.Services
             }
             if(userRequest.BirthDate > DateTime.Now)
             {
-                throw new ValidationException("Data urodzenia użytkownika nie może być z dzisiaj lub przyszłości");
+                throw new ValidationException("Data urodzenia użytkownika nie może być z przyszłości");
             }
             return true;
         }
