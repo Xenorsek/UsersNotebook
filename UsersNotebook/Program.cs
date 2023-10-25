@@ -12,6 +12,7 @@ builder.Services.AddDependencyInjection(configuration);
 
 builder.Services.AddControllersWithViews(options =>
 {
+    options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 
