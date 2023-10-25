@@ -31,7 +31,7 @@ namespace UserNotebook.Core.Services
                 Imie = u.Imie,
                 Nazwisko = u.Nazwisko,
                 DataUrodzenia = u.DataUrodzenia,
-                Plec = u.Płeć,
+                Plec = u.Plec,
                 DodatkoweParametry = u.DodatkoweParametryList.Select(dp => new AdditionalParametersDto { Key = dp.Key, Value = dp.Value }).ToList()
             }).ToList();
 
@@ -51,7 +51,7 @@ namespace UserNotebook.Core.Services
                 Imie = newUser.FirstName,
                 Nazwisko = newUser.LastName,
                 DataUrodzenia = newUser.BirthDate,
-                Płeć = newUser.Gender,
+                Plec = newUser.Gender,
             };
             user.DodatkoweParametryList = newUser.Parameters.Select(x => new AdditionalParameters { Key = x.Key, Value = x.Value }).ToList();
 
@@ -75,7 +75,7 @@ namespace UserNotebook.Core.Services
             user.Imie = updateUser.FirstName;
             user.Nazwisko = updateUser.LastName;
             user.DataUrodzenia = updateUser.BirthDate;
-            user.Płeć = updateUser.Gender;
+            user.Plec = updateUser.Gender;
             user.DodatkoweParametryList = updateUser.Parameters.Select(x => new AdditionalParameters { Key = x.Key, Value = x.Value }).ToList();
 
             await _userRepository.UpdateUser(user);

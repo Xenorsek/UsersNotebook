@@ -20,7 +20,7 @@ namespace UsersNotebook.Data.Context
                     Imie = "Jan",
                     Nazwisko = "Kowalski",
                     DataUrodzenia = new DateTime(1990, 1, 1),
-                    Płeć = "Mężczyzna",
+                    Plec = "Mężczyzna",
                     DodatkoweParametry = JsonSerializer.Serialize(new List<AdditionalParameters>
                     {
                         new AdditionalParameters{ Key = "Numer Telefonu", Value = "123-456-789" },
@@ -33,7 +33,7 @@ namespace UsersNotebook.Data.Context
                     Imie = "Anna",
                     Nazwisko = "Nowak",
                     DataUrodzenia = new DateTime(1995, 5, 5),
-                    Płeć = "Kobieta",
+                    Plec = "Kobieta",
                     DodatkoweParametry = JsonSerializer.Serialize(new List<AdditionalParameters>
                     {
                         new AdditionalParameters{ Key = "Numer Telefonu", Value = "123-456-789" },

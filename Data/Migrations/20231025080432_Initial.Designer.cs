@@ -12,7 +12,7 @@ using UsersNotebook.Data.Context;
 namespace UsersNotebook.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231020153213_Initial")]
+    [Migration("20231025080432_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -50,7 +50,7 @@ namespace UsersNotebook.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Płeć")
+                    b.Property<string>("Plec")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -66,7 +66,7 @@ namespace UsersNotebook.Data.Migrations
                             DodatkoweParametry = "[{\"Key\":\"Numer Telefonu\",\"Value\":\"123-456-789\"},{\"Key\":\"Stanowisko\",\"Value\":\"Programista\"}]",
                             Imie = "Jan",
                             Nazwisko = "Kowalski",
-                            Płeć = "Mężczyzna"
+                            Plec = "Mężczyzna"
                         },
                         new
                         {
@@ -75,7 +75,7 @@ namespace UsersNotebook.Data.Migrations
                             DodatkoweParametry = "[{\"Key\":\"Numer Telefonu\",\"Value\":\"123-456-789\"},{\"Key\":\"Stanowisko\",\"Value\":\"Analityk\"}]",
                             Imie = "Anna",
                             Nazwisko = "Nowak",
-                            Płeć = "Kobieta"
+                            Plec = "Kobieta"
                         });
                 });
 #pragma warning restore 612, 618

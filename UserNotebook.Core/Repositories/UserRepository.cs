@@ -59,7 +59,7 @@ namespace UserNotebook.Core.Repositories
             existingUser.Imie = updatedUser.Imie;
             existingUser.Nazwisko = updatedUser.Nazwisko;
             existingUser.DataUrodzenia = updatedUser.DataUrodzenia;
-            existingUser.Płeć = updatedUser.Płeć;
+            existingUser.Plec = updatedUser.Plec;
             existingUser.DodatkoweParametry = JsonSerializer.Serialize(updatedUser.DodatkoweParametryList);
 
             _dbContext.Users.Update(existingUser);
@@ -92,7 +92,7 @@ namespace UserNotebook.Core.Repositories
                 return false;
             if (string.IsNullOrEmpty(user.Nazwisko))
                 return false;
-            if (string.IsNullOrEmpty(user.Płeć))
+            if (string.IsNullOrEmpty(user.Plec))
                 return false;
             if (user.DataUrodzenia > DateTime.Now)
                 return false;

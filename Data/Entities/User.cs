@@ -19,7 +19,7 @@ namespace UsersNotebook.Data.Entities
         public DateTime DataUrodzenia { get; set; }
 
         [Required]
-        public string Płeć { get; set; }
+        public string Plec { get; set; }
 
         public string DodatkoweParametry { get; set; }
 

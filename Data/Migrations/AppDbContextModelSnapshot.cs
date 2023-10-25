@@ -47,7 +47,7 @@ namespace UsersNotebook.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Płeć")
+                    b.Property<string>("Plec")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -63,7 +63,7 @@ namespace UsersNotebook.Data.Migrations
                             DodatkoweParametry = "[{\"Key\":\"Numer Telefonu\",\"Value\":\"123-456-789\"},{\"Key\":\"Stanowisko\",\"Value\":\"Programista\"}]",
                             Imie = "Jan",
                             Nazwisko = "Kowalski",
-                            Płeć = "Mężczyzna"
+                            Plec = "Mężczyzna"
                         },
                         new
                         {
@@ -72,7 +72,7 @@ namespace UsersNotebook.Data.Migrations
                             DodatkoweParametry = "[{\"Key\":\"Numer Telefonu\",\"Value\":\"123-456-789\"},{\"Key\":\"Stanowisko\",\"Value\":\"Analityk\"}]",
                             Imie = "Anna",
                             Nazwisko = "Nowak",
-                            Płeć = "Kobieta"
+                            Plec = "Kobieta"
                         });
                 });
 #pragma warning restore 612, 618

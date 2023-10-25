@@ -22,7 +22,7 @@ namespace UsersNotebook.Data.Migrations
                     Imie = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Nazwisko = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     DataUrodzenia = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Płeć = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Plec = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DodatkoweParametry = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -32,7 +32,7 @@ namespace UsersNotebook.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "DataUrodzenia", "DodatkoweParametry", "Imie", "Nazwisko", "Płeć" },
+                columns: new[] { "Id", "DataUrodzenia", "DodatkoweParametry", "Imie", "Nazwisko", "Plec" },
                 values: new object[,]
                 {
                     { 1, new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "[{\"Key\":\"Numer Telefonu\",\"Value\":\"123-456-789\"},{\"Key\":\"Stanowisko\",\"Value\":\"Programista\"}]", "Jan", "Kowalski", "Mężczyzna" },
