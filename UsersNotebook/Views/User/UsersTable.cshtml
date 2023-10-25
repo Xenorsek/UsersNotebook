@@ -1,11 +1,12 @@
 ﻿@using UserNotebook.Core.Models;
 @model IEnumerable<UserDto>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
-    Dodaj
-</button>
-<button id="generateReportButton" class="btn btn-primary" data-generateReport-url="@Url.Action("GenerateUserReport", "User")">Stwórz raport</button>
-
+<div class="row mb-2">
+    <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addUserModal">
+        Dodaj
+    </button>
+    <button id="generateReportButton" class="btn btn-primary" data-generateReport-url="@Url.Action("GenerateUserReport", "User")">Stwórz raport</button>
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,6 +15,7 @@
             <th>Data Urodzenia</th>
             <th>Płeć</th>
             <th>Dodatkowe Parametry</th>
+            <th>Akcje</th>
         </tr>
     </thead>
     <tbody>
