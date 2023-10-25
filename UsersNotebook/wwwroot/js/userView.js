@@ -45,6 +45,7 @@ function GenerateParameter(index, container, key, value) {
     const keyCol = document.createElement('div');
     keyCol.className = 'col-md-4';
     const keyInput = document.createElement('input');
+    keyInput.setAttribute("required", true);
     keyInput.type = 'text';
     keyInput.className = 'form-control';
     keyInput.name = 'parameters[' + index + '].key';
@@ -59,6 +60,7 @@ function GenerateParameter(index, container, key, value) {
     const valueCol = document.createElement('div');
     valueCol.className = 'col-md-6';
     const valueInput = document.createElement('input');
+    valueInput.setAttribute("required", true);
     valueInput.type = 'text';
     valueInput.className = 'form-control';
     valueInput.name = 'parameters[' + index + '].value';
