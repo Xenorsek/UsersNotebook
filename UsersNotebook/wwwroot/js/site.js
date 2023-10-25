@@ -1,6 +1,6 @@
 ﻿function showToast(message) {
     var toastHtml = `
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="z-index:2000;">
             <div class="toast-header">
                 <strong class="mr-auto">Błąd</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -10,7 +10,7 @@
             <div class="toast-body">${message}</div>
         </div>`;
     var toastElement = $(toastHtml);
-    $('body').append(toastElement);
+    $('#toastContainer').append(toastElement);
     toastElement.toast('show');
 }
 
